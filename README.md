@@ -1,2 +1,2 @@
 # DataStructure And Algorithms
-# this will be the sample problems we have solved so far.
+# This repo will contain sample problems we have solved so far.
