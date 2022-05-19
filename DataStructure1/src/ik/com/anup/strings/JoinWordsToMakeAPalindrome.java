@@ -1,5 +1,8 @@
 package ik.com.anup.strings;
 
+//HInt:: 1. hashMap for all words in list 2. for loop for each word ; word and reverseWord
+//3. inside for loop for wordlength; reversePrefix, reverseSuffix; mapcontians and  do not pick same i
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,11 +47,13 @@ public class JoinWordsToMakeAPalindrome {
         
         for(int i = 0; i < words.size(); i++){
             String word = words.get(i);
-            String reverse = new StringBuilder(word).reverse().toString();
+            String reverseWord = new StringBuilder(word).reverse().toString();
             for(int j = word.length(); j > 0; j--){
-                String prefix = reverse.substring(0, j);
-                String suffix = reverse.substring(j);
-                if(map.containsKey(prefix) && map.get(prefix) != i){
+                String prefix = reverseWord.substring(0, j);
+                String suffix = reverseWord.substring(j);
+                // Handles that case so that same string itself doesn't get picked
+                // up as other string in pair to form a palindrome>>>> prefix!=i*************************
+                if(map.containsKey(prefix) && map.get(prefix) != i){// either prefix exists in map
                     StringBuilder builder = new StringBuilder();
                     builder.append(prefix);
                     builder.append(word);
@@ -58,7 +63,7 @@ public class JoinWordsToMakeAPalindrome {
                         break;
                     }
                 }
-                else if(map.containsKey(suffix) && map.get(suffix) != i){
+                else if(map.containsKey(suffix) && map.get(suffix) != i){// elseif suffic exists in map
                     StringBuilder builder = new StringBuilder();
                     builder.append(word);
                     builder.append(suffix);

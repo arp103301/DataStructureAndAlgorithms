@@ -1,5 +1,16 @@
 package ik.com.anup.strings;
 
+//HInit:::1.  S_arr and t_Map; countInAllCharInT 
+//2Expand Window;delete from Map and increseCount
+//3Shrink the window:: increase left of map and left index, deleteCount
+
+
+
+
+
+
+
+
 /*You are given alphanumeric strings s and t. Find the minimum window (substring) in s which contains all the characters of t.
 
 Example One
@@ -36,53 +47,76 @@ public class MinimumWindowSubstring {
     * Auxiliary space: O(1).
     * Total space: O(n + m).
     */
-
+	 public static  String minimum_window(String s, String t) {
+		 
+		 	int[] map = new int[128];
+	        char[] arr = s.toCharArray();
+	        //Set up the table
+	        for(char cur : t.toCharArray()){
+	            map[cur]++;
+	        }
+	        
+	        int countAllCharInT = 0;
+	        int left = 0, n = arr.length, right = 0;
+	        int minLen = Integer.MAX_VALUE;
+	        String minLenStr = "";
+	        
+	        while(right < arr.length){
+	            //2. Expand the window
+	            map[arr[right]]--;//2a.delete it from map: eg. value A
+	            if(0 <= map[arr[right]]){
+	                countAllCharInT++;     //.2b.increase the count as A is found in S    
+	            }
+	            
+	            //3. Shrink the window if current window contains all the char in t
+	            while(countAllCharInT == t.length()){
+	                //3a. Update the minLen
+	                if(minLen > right - left + 1){
+	                    minLen = right - left + 1;
+	                    minLenStr = s.substring(left, right + 1);// at first left=0 and right =7
+	                }
+	                
+	                //3b. Shrink the window from left by increasing left of map and left index 
+	                map[arr[left]]++;
+	                if(0 < map[arr[left]]){
+	                    countAllCharInT--;//2b. delete the count to make it again invalid/restart the valid window check
+	                }
+	                left++;
+	            }
+	            
+	            right++;// for while S_string
+	        }
+	        
+	        return minLenStr;
+	    }
  
-	static String minimum_window(String s, String t) {
-        // Write your code here.
-       String result = "";
-
-        if(t.length() > s.length()) {
-            return "-1";
-        }
-
-        int n = s.length(), m = t.length();
-        int freqs[] = new int[128]; 
-        int freqt[] = new int[128]; 
-        for (char c : t.toCharArray()) {
-            freqt[c]++;
-        }
-        int left = 0, len = n + 1;///s.lengthplus one
-        int cnt = 0;
-     
-        for (int i = 0; i < n ; i++){
-            char temp = s.charAt(i);
-            freqs[temp]++;////[0,0,0...1,1,1...0,0,0]
-            // If a character is present in string t we increment the count of cnt variable.
-            if (freqt[temp] != 0 && freqs[temp] <= freqt[temp]) {
-                cnt++;
-            }
-            // If we match all the characters present in string t, we try to find the minimum window possible
-            if (cnt == m) {
-                // if any character is occuring more than the required times, we try to remove it
-                // from the starting and also try to remove the unwanted characters that are
-                // not a part of string t from the starting. We check the remainder string if it
-                // can become the smallest window.
-                while (freqs[s.charAt(left)] > freqt[s.charAt(left)] || freqt[s.charAt(left)] == 0) {
-                    if (freqs[s.charAt(left)] > freqt[s.charAt(left)]) {
-                        freqs[s.charAt(left)]--;
-                    }
-                    left++;
-                }
-                //check if this can become the smallest window and update the result accordingly.>>> window is i-k
-                if (len > i - left + 1) {//if len is less than intialized value then  it is valid
-                    len = i - left + 1;
-                    result = s.substring(left, left + len);//first substring is ADOBEC
-                }
-            }
-        }
-        return (result.length() == 0 ? "-1" : result);
-    }
+	/*
+	 * static String minimum_window(String s, String t) { // Write your code here.
+	 * String result = "";
+	 * 
+	 * if(t.length() > s.length()) { return "-1"; }
+	 * 
+	 * int n = s.length(), m = t.length(); int freqs[] = new int[128]; int freqt[] =
+	 * new int[128]; for (char c : t.toCharArray()) { freqt[c]++; } int left = 0,
+	 * len = n + 1;///s.lengthplus one int cnt = 0;
+	 * 
+	 * for (int i = 0; i < n ; i++){ char temp = s.charAt(i);
+	 * freqs[temp]++;////[0,0,0...1,1,1...0,0,0] // If a character is present in
+	 * string t we increment the count of cnt variable. if (freqt[temp] != 0 &&
+	 * freqs[temp] <= freqt[temp]) { cnt++; } // If we match all the characters
+	 * present in string t, we try to find the minimum window possible if (cnt == m)
+	 * { // if any character is occuring more than the required times, we try to
+	 * remove it // from the starting and also try to remove the unwanted characters
+	 * that are // not a part of string t from the starting. We check the remainder
+	 * string if it // can become the smallest window. while (freqs[s.charAt(left)]
+	 * > freqt[s.charAt(left)] || freqt[s.charAt(left)] == 0) { if
+	 * (freqs[s.charAt(left)] > freqt[s.charAt(left)]) { freqs[s.charAt(left)]--; }
+	 * left++; } //check if this can become the smallest window and update the
+	 * result accordingly.>>> window is i-k if (len > i - left + 1) {//if len is
+	 * less than intialized value then it is valid len = i - left + 1; result =
+	 * s.substring(left, left + len);//first substring is ADOBEC } } } return
+	 * (result.length() == 0 ? "-1" : result); }
+	 */
 	public static void main(String[] args)
 	{
 	    String s = "AZADOBECODEBANC";

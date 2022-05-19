@@ -34,27 +34,23 @@ public class GenerateAllNumeronyms {
 
     static ArrayList<String> generate_all_numeronyms(String word) {
         // Write your code here.
-    // char[] c = word.toCharArray();
-        int n = word.length();
-        ArrayList<String> result = new ArrayList<String>();
-        if(word.length() <= 2 ) return result;
-        int count =0;
-        StringBuilder sb = new StringBuilder();
-       
-        for(int i=1; i<n-1; i++){
-            count =0;
-          for(int j=i; j<n-1; j++){
-              count++;
-              if(count > 1){
-                sb.append(word.substring(0, i));
-                sb.append(count);
-                sb.append(word.substring(i+count, n));
-                result.add(sb.toString());
-                sb.setLength(0);
-              }
-          }
-        }
-        return result;
+    	 ArrayList<String> result = new ArrayList<>();
+         
+         if(word.length()<2){
+             return result;
+         }
+         
+         for(int i=1;i<word.length()-1;i++){
+             for(int j=2;j<word.length()-i;j++){
+                 StringBuilder sb = new StringBuilder();
+                 sb.append(word.substring(0,i));
+                 sb.append(j);
+                 sb.append(word.substring(i+j));
+                 result.add(sb.toString());
+             }
+             
+         }
+         return result;
     }
 
 

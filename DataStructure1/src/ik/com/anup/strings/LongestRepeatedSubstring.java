@@ -1,5 +1,35 @@
 package ik.com.anup.strings;
 
+
+
+//find  abetter solution  may be KMP can be used 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;

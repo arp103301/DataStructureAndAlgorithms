@@ -43,31 +43,32 @@ public class IndicesOfWordsInTextString {
     */
 
 	 static ArrayList<ArrayList<Integer>> find_words(String text, ArrayList<String> words) {
-	        String[] wordsInText = text.split(" ");
-
+	       
+		 
+		 String[] wordsInText = text.split(" ");
 	        // {word -> [index1, index2]}
-	        HashMap<String, ArrayList<Integer>> textIndex = new HashMap<>();
+	        HashMap<String, ArrayList<Integer>> textMap = new HashMap<>();
 	        int currentIndex = 0;
 	        for (String word : wordsInText) {
-	            ArrayList<Integer> indexes = textIndex.get(word);
+	            ArrayList<Integer> indexes = textMap.get(word);
 	            if (indexes == null) {
 	                indexes = new ArrayList<>();
 	            }
-	            indexes.add(currentIndex);
-	            textIndex.put(word, indexes);
+	            indexes.add(currentIndex);///////
+	            textMap.put(word, indexes);
 	            currentIndex += word.length() + 1;
 	        }
 
-	        ArrayList<ArrayList<Integer>> answer = new ArrayList<>();
+	        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 	        for (String word : words) {
-	            ArrayList<Integer> indexes = textIndex.get(word);
+	            ArrayList<Integer> indexes = textMap.get(word);
 	            if (indexes == null) {
 	                indexes = new ArrayList<>(Collections.singleton(-1));
 	            }
-	            answer.add(indexes);
+	            result.add(indexes);
 	        }
 
-	        return answer;
+	        return result;
 	    }
 
 }

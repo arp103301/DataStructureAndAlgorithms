@@ -1,15 +1,39 @@
 package ik.com.anup.strings;
 
-/*Given a text string containing characters only from lowercase alphabetic characters and a pattern string containing characters only from lowercase alphabetic characters and two other special characters '.' and '*'.
+//Hint:;https://www.xiaokangstudynotes.com/dynamic-programming-regular-expression-matching/
+//https://happygirlzt.com/code/10.html
+//https://www.youtube.com/watch?v=bSdw9rJYf-I
+//https://www.youtube.com/watch?v=7SHV_QfVROE	
 
-Your task is to implement a pattern matching algorithm that returns true if pattern is matched with text otherwise returns false. The matching must be exact, not partial.
+// HINT:::::1.2D boolean table; 2. 0,0=true, 
+//3.first row:: if pattern has * get it from prev colm
+// 4. main for loop::  4a.char matches get from previous diagonal for dot and regular char; 
+//4b.In case of *, if previus colm true  ; if prevCol has dot or char matches getvalue from prevRow 
+
+
+/*Given a text string containing characters only from lowercase alphabetic characters 
+ * and a pattern string containing characters only from lowercase alphabetic characters and two other special characters '.' and '*'.
+
+Your task is to implement a pattern matching algorithm that returns true if pattern 
+is matched with text otherwise returns false. The matching must be exact, not partial.
 
 Explanation of the special characters:
 
+
+
+
 '.' - Matches a single character from lowercase alphabetic characters.
-'*' - Matches zero or more preceding character. It is guaranteed that '*' will have one preceding character which can be any lowercase alphabetic character or special character '.'. But '*' will never be the preceding character of '*'. (That means "**" will never occur in the pattern string.)
+'*' - Matches zero or more preceding character. It is guaranteed that '*' will have one preceding 
+character which can be any lowercase alphabetic character or special character '.'. But '*' will 
+never be the preceding character of '*'. (That means "**" will never occur in the pattern string.)
+
+
+
+
 '.' = "a", "b", "c", ... , "z"
 a* = "a", "aa", "aaa", "aaaa",... or empty string("")
+
+
 ab* = "a", "ab", "abb", "abbb", "abbbb", ...
 Example One
 {
@@ -53,36 +77,58 @@ Constraints:
 0 <= text length, pattern length <= 1000
 text string containing characters only from lowercase alphabetic characters.
 pattern string containing characters only from lowercase alphabetic characters and two other special characters '.' and '*'.
-In pattern string, It is guaranteed that '*' will have one preceding character which can be any lowercase alphabetic character or special character '.'. But '*' will never be the preceding character of '*'.*/
+
+In pattern string, It is guaranteed that '*' will have one preceding character 
+which can be any lowercase alphabetic character or special character '.'. 
+But '*' will never be the preceding character of '*'
+.*/
+
+
+
+
+///////////////////////////S= aab   and P=c*a*b  is true since c*  can be zero times c
+
+
+
 public class RegexMatcher {
 
-    static boolean pattern_matcher(String text, String pattern) {
-        boolean[][] memo = new boolean[text.length() + 1][pattern.length() + 1];
-        memo[0][0] = true;
-        for (int j = 1; j < memo[0].length; j++) {
-            if (pattern.charAt(j - 1) == '*') {
-                memo[0][j] = memo[0][j - 2];
-            } else {
-                memo[0][j] = false;
+    static boolean pattern_matcher(String s, String p) {
+    	int m = s.length();
+        int n = p.length();
+
+      // default false so no explicit need for first colum(empty pattern and single string)
+        boolean[][] dp = new boolean[m + 1][n + 1];
+         
+        dp[0][0] = true;// empty string and empty patten gives true
+         
+         // fill:first row:: if pattern has * it will true only if the previous  col value is true======================
+        for (int j = 2; j <= n; j++) {
+            if (p.charAt(j - 1) == '*') {
+                dp[0][j] = dp[0][j - 2];//previous col value
             }
         }
-        for (int i = 1; i < memo.length; i++) {
-            memo[i][0] = false;
-        }
-        for (int i = 1; i < memo.length; i++) {
-            char tc = text.charAt(i - 1);
-            for (int j = 1; j < memo[0].length; j++) {
-                char pc = pattern.charAt(j - 1);
-                if (pc == '*') {
-                    memo[i][j] = memo[i][j - 1] || memo[i][j - 2]
-                    || ((tc == pattern.charAt(j - 2) || pattern.charAt(j - 2) == '.') && memo[i - 1][j]);
-                } else {
-                    memo[i][j] = pc == '.' || tc == pc ? memo[i - 1][j - 1] : false;
+
+        //remaining cells
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                char sc = s.charAt(i - 1);
+                char pc = p.charAt(j - 1);
+
+               // Case1:  regular char matches or we have dot in pattern 
+                if (sc == pc || pc == '.') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (pc == '*') {// Case 2: we have *
+                    if (dp[i][j - 2]) {// get from prev colmn
+                        dp[i][j] = true;
+                    } else if (sc == p.charAt(j - 2) ||
+                              p.charAt(j - 2) == '.') {
+                        dp[i][j] = dp[i - 1][j];// prevcol dot or char matches get from prevRow
+                    }
                 }
             }
         }
 
-        return memo[text.length()][pattern.length()];
+        return dp[m][n];
     }
 }
 
