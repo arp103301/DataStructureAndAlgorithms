@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import F.com.anup.algorithms.sorting.MergeSort;
+
 
 /*Given a list of numbers, sort it using the Merge Sort algorithm.
 
