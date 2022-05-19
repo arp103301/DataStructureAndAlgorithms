@@ -1,8 +1,13 @@
 package ik.com.anup.LinkedList;
 
-// use hashmap 
+// use hashmap :: hm(curr, new Node(curr.val)
+//while { currClone, put/get:randomClone, put/get:nextClone
+//curr.curr.Next  and return hm.get(head);
+
+//HInt::create newNode(curr.val)
 
 import java.util.HashMap;
+import java.util.Map;
 
 /*You are given a linked list with the continuous sequence of the natural numbers, i.e., 1, 2, ..., n. 
  * Apart from the standard pointer to the next node, each node also has another one pointing to a random node in the list.
@@ -95,45 +100,48 @@ public class CloneLinkedListWithRandomPointer2 {
     	  }
 
     
+    /// hashmap will have oldNode and NewNode
     
     
-    
-    	  public  static Node cloneUsingHashmap(Node firstHead) {
-    	    if (firstHead == null) {
-    	      return null;
-    	    }
-
-    	    HashMap<Node, Node> m = new HashMap<>();///*****************************
-    	    Node secondHead = null, secondNode = null;
-    	    Node firstNode = firstHead;
-
-    	    while (firstNode != null) {
-    	      Node newNode =  new Node(firstNode.value);
-    	      if (secondHead == null) {
-    	        secondHead = newNode;
-    	        secondNode = secondHead;
-    	      } else {
-    	        secondNode.next = newNode;
-    	        secondNode = newNode;
-    	      }
-
-    	      m.put(firstNode, secondNode);
-    	      firstNode = firstNode.next;
-    	    }
-
-    	    firstNode = firstHead;
-    	    secondNode = secondHead;
-
-    	    while (firstNode != null) {
-    	      if (firstNode.random != null) {
-    	        secondNode.random = m.get(firstNode.random);
-    	      }
-
-    	      firstNode = firstNode.next;
-    	      secondNode = secondNode.next;
-    	    }
-
-    	    return secondHead;
+    	  public  static Node cloneUsingHashmap(Node head) {
+    		   //base case
+    	        if(head == null) return null;
+    	        //define table
+    	        Map<Node, Node> hm = new HashMap<>();
+    	        
+    	        //define cur pointer = head
+    	        Node cur = head;
+    	        hm.put(cur, new Node(cur.value));
+    	        
+    	        //while cur pointer != null
+    	        while(cur != null){
+    	            //1. get the new node of the cur pointer
+    	            Node curClone = hm.get(cur);
+    	            
+    	            //2. Build the random pointer if doesn't exists in the table
+    	            if(cur.random != null && !hm.containsKey(cur.random)){
+    	                hm.put(cur.random, new Node(cur.random.value));
+    	            }
+    	            Node randomClone = hm.get(cur.random);
+    	            
+    	            //3  get new cur node point to new random node
+    	            curClone.random = randomClone;
+    	            
+    	            //4. Build the next node if doesn't exists in the table
+    	            if(cur.next != null && !hm.containsKey(cur.next)){
+    	                hm.put(cur.next, new Node(cur.next.value));
+    	            }
+    	            Node nexClone = hm.get(cur.next);
+    	            //5. Get the new curNode point to the next new node
+    	            curClone.next = nexClone;
+    	            
+    	            //6. cur pointer move the next node
+    	            cur = cur.next;
+    	        }
+    	            
+    	        
+    	        //return the new head node from the table
+    	        return hm.get(head);
     	  }
     	
 

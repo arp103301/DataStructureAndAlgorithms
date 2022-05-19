@@ -1,7 +1,13 @@
 package ik.com.anup.LinkedList;
 
-// two pointers, one starts from head and once Kth node from start is found we again run the ptr2 from start to find the kth from end
-// needs two pointers to track the two nodes to be worked on .. 
+// two pointers ptr1 and ptr2;  prevhead1 and prevHead2 
+// ptr1 is found while K>1 one starts from head ptr1=ptr.next
+//now run the itr from curr=ptr1 and it will stop from kth from end. ..this is ptr2.
+//edge case of ptr1 is head and edge case of ptr2 is head
+//// Swap next pointers of ptr1 and ptr2.
+
+
+
 
 /*Given a linked list and an integer k, swap k-th (1-indexed) node from the beginning, with k-th node from the end.
 
@@ -111,4 +117,3 @@ public class SwapKthNodesInALinkedList {
 }
 }
 
-// find the prev for both kth nodes( from begin and end ) and changes the next pointer accordingly.

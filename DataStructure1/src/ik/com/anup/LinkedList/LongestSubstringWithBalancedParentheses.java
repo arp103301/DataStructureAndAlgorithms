@@ -54,8 +54,8 @@ public class LongestSubstringWithBalancedParentheses {
                 rightCount = 0;
             }
              else if(leftCount == rightCount) {
-                maxCount = Math.max(maxCount, 2 * leftCount);
-            }
+                maxCount = Math.max(maxCount, 2 * leftCount);//take count of close * 2, as we need to consider open also
+            }//https://leetcode.com/problems/longest-valid-parentheses/discuss/2017506/Easy-O(1)-space-solution-O(n)-time
         }
     /*    """
         Consider '(((()))'.
@@ -79,7 +79,7 @@ public class LongestSubstringWithBalancedParentheses {
                 leftCount = 0;
                 rightCount = 0;
             } else if(leftCount == rightCount) {
-                maxCount = Math.max(maxCount, 2 * leftCount);
+                maxCount = Math.max(maxCount, 2 * leftCount);//take count of close * 2, as we need to consider open also
             }
         }
         return maxCount;// this is the finalMaxcount from both direction.

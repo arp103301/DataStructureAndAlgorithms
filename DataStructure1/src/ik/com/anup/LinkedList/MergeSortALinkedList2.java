@@ -7,7 +7,7 @@ package ik.com.anup.LinkedList;
 
 //hint::
 //1. find mid node using slow and fastpointer
-//2. pass mid and mid.Next to recursive call.
+//2. pass head and midNext to recursive call.
 //3. pass leftHead and rightHead to the mergeMethod, use mergedHead and mergeTail
 
 /*Given a linked list, sort it in the ascending order using the Merge Sort algorithm.
@@ -60,7 +60,7 @@ public class MergeSortALinkedList2 {
             return head;
         }
         
-        LinkedListNode midNode = findMid(head);
+        LinkedListNode midNode = findMidNode(head);
         
         LinkedListNode midNodeNext = midNode.next;// mid+1 
         
@@ -93,40 +93,40 @@ public class MergeSortALinkedList2 {
 		 * head of the final merged linked list)
 		 */
     	
-    	LinkedListNode merged = new LinkedListNode(-1);//do it
-    	LinkedListNode temp = merged;// do it.
+    	LinkedListNode result = new LinkedListNode(-1);//do it
+    	LinkedListNode curr = result;// do it.
        
         // While head1 is not null and head2
         // is not null
         while (head1 != null && head2 != null) {
             if (head1.value < head2.value) {
-                temp.next = head1;
+                curr.next = head1;
                 head1 = head1.next;
             }
             else {
-                temp.next = head2;
+                curr.next = head2;
                 head2 = head2.next;
             }
-            temp = temp.next;
+            curr = curr.next;
         }
        
         // While head1 is not null
         while (head1 != null) {
-            temp.next = head1;
+            curr.next = head1;
             head1 = head1.next;
-            temp = temp.next;
+            curr = curr.next;
         }
        
         // While head2 is not null
         while (head2 != null) {
-            temp.next = head2;
+            curr.next = head2;
             head2 = head2.next;
-            temp = temp.next;
+            curr = curr.next;
         }
-        return merged.next;//returning the dummyHead.next 
+        return result.next;//returning the dummyHead.next 
     }
     
-    private static LinkedListNode findMid(LinkedListNode node){
+    private static LinkedListNode findMidNode(LinkedListNode node){
         LinkedListNode slow = node; 
         LinkedListNode fast = node;
         
@@ -178,3 +178,4 @@ public class MergeSortALinkedList2 {
         printList(head);
     }
 }
+//nlogn

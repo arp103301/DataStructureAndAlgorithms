@@ -1,6 +1,9 @@
 package ik.com.anup.LinkedList;
 
-// use single poiner to find the target index -- no need for second pointr since only one node is to be worked-on
+//find the total number of nodes
+// use single poiner(=prev) to find the target index= total-distfromEnd
+//-- no need for second pointr since only one node is to be worked-on
+////connect prev to next node by doing prev.next=curr.next
 
 /*Remove n-th node from the end of the given linked list. Return the head of the modified list.
 

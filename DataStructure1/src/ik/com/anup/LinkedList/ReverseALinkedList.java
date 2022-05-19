@@ -1,20 +1,9 @@
 package ik.com.anup.LinkedList;
 
+//Hint:..  prev, curr and next; store nextOfCurr, currNextFlag and move prev and curr forward
+
 import java.util.LinkedList;
-////https://www.geeksforgeeks.org/reverse-a-linked-list/
-////////////4 steps :store nextNode, changePointer and move the prev/curr node forward 
-
-/*Iterative Method 
-Initialize three pointers prev as NULL, curr as head and next as NULL.
-Iterate through the linked list. In loop, do following. 
-// Before changing next of current, store next node 
-next = curr->next
-// Now change next of current . This is where actual reversing happens 
-curr->next = prev /******************main ponter change******************
-// Move prev and curr one step forward 
-prev = curr 
-curr = next*/
-
+//https://github.com/Eric-programming/CodeSolution/blob/master/src/LinkedList/ReverseLinkedList/ReverseLinkedList.java
 
 
 public class ReverseALinkedList {
@@ -23,14 +12,14 @@ public class ReverseALinkedList {
 	 
 	
 	 
-	    static Node head;
+	    static ListNode head;
 	 
-	    static class Node {
+	    static class ListNode {
 	 
 	        int data;
-	        Node next;
+	        ListNode next;
 	 
-	        Node(int d)
+	        ListNode(int d)
 	        {
 	            data = d;
 	            next = null;
@@ -38,24 +27,26 @@ public class ReverseALinkedList {
 	    }
 	 
 	    /* Function to reverse the linked list */
-	    Node reverse(Node node)
-	    {
-	        Node prev = null;
-	        Node current = node;
-	        Node next = null;
-	        while (current != null) {
-	            next = current.next;//store
-	            current.next = prev;// actual reverse
-	            prev = current;//itr prev
-	            current = next;//itr curr
-	        }
-	        node = prev;/// is it neccessary??? yes seee below
-	       return node;///
-	        //return current;>>>> this does not work since loop only stops when current is null... hence we need to save the current just before final assign
-	    }
+	    ListNode reverse(ListNode head)
+		{
+			// Base Case
+			if (head == null || head.next == null)
+				return head;
+
+			ListNode pre = null, cur = head;
+
+			// Traverse the list
+			while (cur != null) {
+				ListNode nex = cur.next;// store nextOFCurr
+				cur.next = pre;
+				pre = cur;
+				cur = nex;
+			}
+			return pre;
+		}
 	 
 	    // prints content of double linked list
-	    void printList(Node node)
+	    void printList(ListNode node)
 	    {
 	        while (node != null) {
 	            System.out.print(node.data + " ");
@@ -67,10 +58,10 @@ public class ReverseALinkedList {
 	    public static void main(String[] args)
 	    {
 	    	ReverseALinkedList list = new ReverseALinkedList();
-	        list.head = new Node(85);
-	        list.head.next = new Node(15);
-	        list.head.next.next = new Node(4);
-	        list.head.next.next.next = new Node(20);
+	        list.head = new ListNode(85);
+	        list.head.next = new ListNode(15);
+	        list.head.next.next = new ListNode(4);
+	        list.head.next.next.next = new ListNode(20);
 	 
 	        System.out.println("Given Linked list");
 	        list.printList(head);

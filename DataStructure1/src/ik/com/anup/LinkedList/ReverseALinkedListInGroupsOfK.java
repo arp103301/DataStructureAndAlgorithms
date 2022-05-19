@@ -41,8 +41,8 @@ public class ReverseALinkedListInGroupsOfK {
    
     static LinkedListNode reverse_linked_list_in_groups_of_k(LinkedListNode head, int k) {
         LinkedListNode curr = head;
-        LinkedListNode dummy = new LinkedListNode();
-        LinkedListNode tail = dummy;
+        LinkedListNode reverseHead = new LinkedListNode();
+        LinkedListNode reverseTail = reverseHead;
         
         
         while(curr != null) {
@@ -58,11 +58,11 @@ public class ReverseALinkedListInGroupsOfK {
                 index++;//**************** 1 more steps than class ReverseAlInkedList
             }
             
-            tail.next = prev;
-            tail= temp;
+            reverseTail.next = prev;
+            reverseTail= temp;
         }
         
-        return dummy.next;
+        return reverseHead.next;
     }
     
     

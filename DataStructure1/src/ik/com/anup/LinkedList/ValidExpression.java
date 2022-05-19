@@ -1,7 +1,10 @@
 package ik.com.anup.LinkedList;
 
-//Hint:: 1. two stacks 2. keep on adding until you see closing bracket-  internal while loop.. for char use ..getCorrespondingOpenBracket and also pop intstack
-//3. outside while loop for emptyting charStack ..false for 
+//Hint:: 1. intStk and CharOPstk, isOPr, getcorrespondingBrak, isOPenBrack,isDigit
+//2. keep on adding until you see closing bracket-  internal while loop..
+// for char use ..getCorrespondingOpenBracket and also pop intstack
+//3. outside while loop for emptyting charStack ..everycharstk pop needs intStk pop as well
+//4. char stk==0 and intStk<2 othrwise false
 
 
 /*You have to check whether a given string is a valid mathematical expression or not. 
@@ -102,7 +105,7 @@ public class ValidExpression {
             }
         }
         
-        //empty charstacks until the empty and if clause for operator 
+        //empty charstacks until the empty and if clause for operator >>>>>>>>>by this time only opr should be in Charstk
         while (!charStack.isEmpty()) {
             char c = charStack.pop();
             if (!isOperator(c)) {

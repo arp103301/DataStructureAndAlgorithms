@@ -39,13 +39,37 @@ public class LRUCache2 {
 		tail.prev = head;
 
 	}
+	
+	// adding new node next to head to keep the track of recently accessed key
+	public void add(Node node) {
+		// between the node and frontsentinel
+		Node frontsentinel = head.next;//just after head where we want to insert 
+		// head.next is frontsentinel so need to map its prev to this newNode
+		node.next = frontsentinel;
+		frontsentinel.prev = node;
+		// between the head and node:::flags of node and head 
+		head.next = node;
+		node.prev = head;
+
+	}
+
+	// removing node that has been asked to delete
+	public void remove(Node node) {
+		// find the two nodes on either side
+		Node nextNode = node.next;
+		Node prevNode = node.prev;
+		// now the removal part by changing flags of two sides nodes
+		nextNode.prev = prevNode;
+		prevNode.next = nextNode;
+
+	}
 
 	public int get(int key) {
 		int result = -1;
 		Node node = cachedMap.get(key);
 		if (node != null) {
 			result = node.val;
-			remove(node);// remove it from its current position
+			remove(node);// remove it from its current position; can be anywhere
 			add(node); // add will be automatic in the front
 		}
 		return result;
@@ -55,7 +79,7 @@ public class LRUCache2 {
 		Node node = cachedMap.get(key);
 
 		if (node != null) {//siMilar to get
-			remove(node);// remove from back
+			remove(node);//remove
 			node.val = value;// set the value
 			add(node);// add to the front
 		} else {
@@ -75,26 +99,7 @@ public class LRUCache2 {
 
 	}
 
-	public void add(Node node) {
-		// between the node and frontsentinel
-		Node frontsentinel = head.next;//just after head where we want to insert 
-		node.next = frontsentinel;
-		head.next.prev = node;// head.next is frontsentinel so need to map its prev to this newNode
-		// between the head and node:::flags of node and head 
-		head.next = node;
-		node.prev = head;
 
-	}
-
-	public void remove(Node node) {
-		// find the two nodes on either side
-		Node nextNode = node.next;
-		Node prevNode = node.prev;
-		// now the removal part by changing flags of two sides nodes
-		nextNode.prev = prevNode;
-		prevNode.next = nextNode;
-
-	}
 
 	/**
 	 * Your LRUCache object will be instantiated and called as such: LRUCache obj =
