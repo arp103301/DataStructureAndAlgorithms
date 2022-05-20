@@ -69,11 +69,11 @@ public class HowManyBinarySearchTreesWithNNodes {
 	static long how_many_bsts(int n) {
         // Write your code here.
         // Write your code here.
-        long[] memo = new long[n+1];
-      return helper(memo, n);
+        long[] dp = new long[n+1];
+      return helper(dp, n);
   }
 
-  static long helper(long[] memo, int n) {
+  static long helper(long[] dp, int n) {
       if (n == 0) return 1;// used for passing memo[n]>>>>>>>>>>>. constraint is 1 as lowest 
       if (n <= 2 ) return n;//// used for passing memo[n]
     
@@ -81,14 +81,14 @@ public class HowManyBinarySearchTreesWithNNodes {
       long result = 0;
       for (int i=0; i<n; i++) {
     	  
-          long left = helper(memo, i);//f(0)
+          long left = helper(dp, i);//f(0)
           
-          long right = helper(memo, n -i - 1);//n-(i+1)// f(n-i)
+          long right = helper(dp, n -i - 1);//n-(i+1)// f(n-i)
           
           result += left*right;  // f(n) = summuation of i to n {(f(i-1)*f(n-1))  }
       }
-      memo[n] = result;
-      return memo[n];
+      dp[n] = result;
+      return dp[n];
   } 
 }
 

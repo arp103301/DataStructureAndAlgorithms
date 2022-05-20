@@ -31,20 +31,20 @@ public class PermuteArrayOfIntegersDuplicatesAllowed {
      // Sort the array so that we can avoid duplicate combinations
         Collections.sort(arr);
         
-        permduplhelper(arr, 0, new ArrayList<Integer>(), result);
+        helper(arr, 0, new ArrayList<Integer>(), result);
         
         return result;
     }
     
-    public static void permduplhelper(ArrayList<Integer> arr, int startInd, 
+    public static void helper(ArrayList<Integer> input, int startInd, 
     			ArrayList<Integer> slate, ArrayList<ArrayList<Integer>> result) {
         
-        if (startInd == arr.size()) {
-            result.add(new ArrayList<Integer>(arr));
+        if (startInd == input.size()) {
+            result.add(new ArrayList<Integer>(input));
             return;
             
-        } else {
-            for (int i = startInd; i < arr.size(); i++) {
+        } //else {
+            for (int i = startInd; i < input.size(); i++) {
                 
             	
 
@@ -54,16 +54,16 @@ public class PermuteArrayOfIntegersDuplicatesAllowed {
                 // arr[fixed_index] holds the value of arr[i] where i is any index
                 // that lies in range [fixed_index, n - 1].
                 
-                if (!placed.contains(arr.get(i))) {// extra than unique permu
+                if (!placed.contains(input.get(i))) {// extra than unique permu
                 	
-                	placed.add(arr.get(i)); // extra than unique permu
+                	placed.add(input.get(i)); // extra than unique permu
                 	
                 	
-                    swap(arr, startInd, i);
+                    swap(input, startInd, i);
                     
-                    permduplhelper(arr, startInd + 1, slate, result);
+                    helper(input, startInd + 1, slate, result);
                     
-                    swap(arr, startInd, i);
+                    swap(input, startInd, i);
                 }
                 
                 
@@ -71,7 +71,7 @@ public class PermuteArrayOfIntegersDuplicatesAllowed {
                  
            
             }
-        }
+        //}
     }
     
     static void swap(ArrayList<Integer> arr, int i, int j) {

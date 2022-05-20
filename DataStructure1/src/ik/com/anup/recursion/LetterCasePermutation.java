@@ -41,7 +41,7 @@ public static void helper(String input, int indx, char[] slate, ArrayList<String
     if (indx == input.length()) {
         result.add(new String(slate));
         
-    } else {//Recursion
+    } //else {//Recursion
     	
         char ch = input.charAt(indx);
         if (Character.isLetter(ch)) {// two choices for alphabetes
@@ -59,7 +59,7 @@ public static void helper(String input, int indx, char[] slate, ArrayList<String
             slate[indx] = ch;
             helper(input, indx+1, slate, result);
         }
-    }
+    //}
 }
 /*
 Asymptotic complexity in terms of the length of the input string:

@@ -43,33 +43,39 @@ Constraints:
 1 <= target <= 1013*/
 public class GenerateAllExpressionsTargetValue {
 	
-	/*
-	 * static ArrayList<String> generate_all_expressions(String s, Long target) { //
-	 * Write your code here. ArrayList<String> result = new ArrayList<>();
-	 * 
-	 * if(s == null) return result;
-	 * 
-	 * generateExpressions(result, s, "", target, 0, 0, 0);
-	 * 
-	 * return result; }
-	 * 
-	 * static void generateExpressions(ArrayList<String> result, String input,
-	 * String slate, long target, int startInd, long curVal, long lastVal) { if
-	 * (startInd == input.length()) { if (curVal == target) { result.add(slate); } }
-	 * 
-	 * for (int i = startInd; i < input.length(); i++) {// possible length=13
-	 * 
-	 * String partVal = input.substring(startInd, i + 1); long curNum =
-	 * Long.parseLong(partVal);
-	 * 
-	 * if( startInd == 0) {// no need to add or multiply generateExpressions(result,
-	 * input, (slate + partVal), target,i + 1, curNum, curNum); } else {// first
-	 * element is not 0 generateExpressions(result, input, (slate + "+" + partVal),
-	 * target,i + 1, (curVal + curNum), curNum); generateExpressions(result, input,
-	 * (slate + "*" + partVal), target,i + 1, (curVal-lastVal) + (lastVal * curNum),
-	 * (lastVal * curNum)); } } }
-	 */
 	
+/*	  static ArrayList<String> generate_all_expressions(String s, Long target) { //
+	 // Write your code here. 
+	  ArrayList<String> result = new ArrayList<>();
+	  
+	  if(s == null) return result;
+	  
+	  generateExpressions(result, s, "", target, 0, 0, 0);
+	  
+	  return result; 
+	  }
+
+	static void generateExpressions(ArrayList<String> result, String input,
+	  String slate, long target, int startInd, long curVal, long lastVal) { if
+	  (startInd == input.length()) { if (curVal == target) { result.add(slate); } }
+	  
+	  for (int i = startInd; i < input.length(); i++) {// possible length=13
+	  
+	  String partVal = input.substring(startInd, i + 1); long curNum =
+	  Long.parseLong(partVal);
+	  
+	  if( startInd == 0) {// no need to add or multiply 
+		  generateExpressions(result,
+	  input, (slate + partVal), target,i + 1, curNum, curNum); } 
+	  else {// firstelement is not 0 
+		  generateExpressions(result, input, (slate + "+" + partVal),target,i + 1, (curVal + curNum), curNum);
+		  generateExpressions(result, input,(slate + "*" + partVal), target,i + 1, (curVal-lastVal) + (lastVal * curNum),
+	  (lastVal * curNum));
+		  } 
+	  } 
+	  }
+	 
+	*/
 	
 	
 	
@@ -87,9 +93,10 @@ public class GenerateAllExpressionsTargetValue {
         return list;
     }
 
-	 static private void exprHelper(String num, long target, int start, long prevVal, String exp, ArrayList<String> list) {
+	 static private void exprHelper(String num, long target, int start,
+			 long prevVal, String slate, ArrayList<String> result) {
         if (target == 0 && start == num.length()) {
-            list.add(exp);
+            result.add(slate);
             return;
         }
         
@@ -100,19 +107,19 @@ public class GenerateAllExpressionsTargetValue {
             
             long currVal = Long.parseLong(num.substring(start, i + 1));
             if (start == 0) {
-            	exprHelper(num, target - currVal, i + 1, currVal, exp + currVal, list);
+            	exprHelper(num, target - currVal, i + 1, currVal, slate + currVal, result);
             } else {
             	// target and slate changed with i+1
-            	exprHelper(num, target - currVal, i + 1, currVal, exp + "+" + currVal, list);
-            	exprHelper(num, target + currVal, i + 1, -currVal, exp + "-" + currVal, list);
+            	exprHelper(num, target - currVal, i + 1, currVal, slate + "+" + currVal, result);
+            	exprHelper(num, target + currVal, i + 1, -currVal, slate + "-" + currVal, result);
             	 //  In other words: 4 - 3 + (3 * 4) = 13. And in terms of the parameters:
-            	exprHelper(num, target + prevVal - prevVal * currVal, i + 1, prevVal * currVal, exp + "*" + currVal, list);
+            	exprHelper(num, target + prevVal - prevVal * currVal, i + 1, prevVal * currVal, slate + "*" + currVal, result);
             	
             	//prevVal = 4-3+3 and currentVal 4 hence>>>>>>>>>>>> target -prevval+prevVal * currVal
             }
         }
     }
-
+	///////////////////////// The overall time complexity is O(4^n).
 }
 
 /*

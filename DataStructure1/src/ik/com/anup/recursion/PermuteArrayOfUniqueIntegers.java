@@ -1,5 +1,8 @@
 package ik.com.anup.recursion;
 
+
+//LC 46
+
 //https://www.tutorialcup.com/leetcode-solutions/leetcode-permutations.htm   for figure on swapping
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,14 +50,14 @@ public class PermuteArrayOfUniqueIntegers {
 		return result;
 	}
 
-	private static void helper(ArrayList<Integer> arr, ArrayList<ArrayList<Integer>> result, int idx,
+	private static void helper(ArrayList<Integer> input, ArrayList<ArrayList<Integer>> result, int idx,
 			ArrayList<Integer> slate) {
-		if (idx == slate.size()) {
+		if (idx == input.size()) {
 			result.add(new ArrayList<Integer>(slate));
 			
 			 // Print this permutation
-            for (int i = 0; i < arr.size(); i++) {
-                System.out.print(arr.get(i) + " ");
+            for (int i = 0; i < input.size(); i++) {
+                System.out.print(input.get(i) + " ");
             }
             System.out.println();
             
@@ -62,13 +65,13 @@ public class PermuteArrayOfUniqueIntegers {
 			return;
 		}
 
-		for (int i = idx; i < slate.size(); i++) {
+		for (int i = idx; i < input.size(); i++) {
 			// Fix an element at index l
-			swap(slate, idx, i);
+			swap(input, idx, i);
 			 // Recur for index l + 1 to r
-			helper(arr, result, idx + 1, slate);
+			helper(input, result, idx + 1, slate);
 		    // Back track
-			swap(slate, i, idx);
+			swap(input, i, idx);
 		}
 	   
 		

@@ -17,7 +17,7 @@ Size of the input array is exactly 9 x 9
 0 <= value in the input array <= 9
 */
 
-public class Solve_sudoku_puzzle {
+public class SodokuSolveR {
 
 	
 
@@ -30,11 +30,11 @@ public class Solve_sudoku_puzzle {
     * Total space: O(n^2).
     */
     static ArrayList<ArrayList<Integer>> solve_sudoku_puzzle(ArrayList<ArrayList<Integer>> board) {
-        recursive_backtracking(board);
+        helper(board);
         return board;
     }
 
-    static boolean recursive_backtracking(ArrayList<ArrayList<Integer>> board) {
+    static boolean helper(ArrayList<ArrayList<Integer>> board) {
         // Look for the next unfilled cell.
         int row = 0;
         int col = 0;
@@ -66,7 +66,7 @@ public class Solve_sudoku_puzzle {
                 board.get(row).set(col, digit);
 
                 // Recurse to find and fill next unfilled cell.
-                if (recursive_backtracking(board)) {
+                if (helper(board)) {
                     return true;
                 } else {
                     // Placing number num to this unfilled cell does not lead to a solution.
@@ -125,7 +125,7 @@ public class Solve_sudoku_puzzle {
 
 
 /*
- * Time Complexity O(9k), where k is the number of unfilled cells.
+ * Time Complexity O(9^k), where k is the number of unfilled cells.
  * 
  * If there is only one unfilled cell, we need to try 9 digits for the position
  * in the worst case. With two unfilled cells, we’d try up to 9 possibilities

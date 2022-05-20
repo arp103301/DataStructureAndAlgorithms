@@ -1,5 +1,7 @@
 package ik.com.anup.recursion;
 
+//https://leetcode.com/problems/combination-sum/  LC 39
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,7 +30,8 @@ Output:
 ]
 Notes
 Each number in the array can be used exactly once.
-All the returned combinations must be different. Two combinations are considered different if their sorted version is different.
+All the returned combinations must be different. Two combinations are considered different if their 
+sorted version is different.
 The order of combinations and the order of the numbers inside a combination does not matter.
 Constraints:
 
@@ -71,11 +74,12 @@ public class GenerateAllCombinationsWithSumEqualToTarget {
 	        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 	        ArrayList<Integer> slate = new ArrayList<>();
 	        Collections.sort(arr);
-	        combinationHelper(arr, slate, 0, target, result);
+	        helper(arr, slate, 0, target, result);
 	        return result;
 	    }
 
-	    public static void combinationHelper(ArrayList<Integer> input, ArrayList<Integer> slate, int idx, int target, ArrayList<ArrayList<Integer>> result)
+	    public static void helper(ArrayList<Integer> input, ArrayList<Integer> slate, 
+	    		int idx, int target, ArrayList<ArrayList<Integer>> result)
 	    {
 	       if(target<0)
 	        {
@@ -103,7 +107,7 @@ public class GenerateAllCombinationsWithSumEqualToTarget {
 	            
 	           slate.add(currValue);
 	        // Recursive call with index+1
-	           combinationHelper(input, slate, i+1, target-currValue, result);
+	           helper(input, slate, i+1, target-currValue, result);
 	           
 	           // Remove element from the combination
 	           slate.remove(slate.size()-1);

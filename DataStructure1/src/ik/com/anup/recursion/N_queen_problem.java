@@ -52,7 +52,7 @@ public class N_queen_problem {
    
 
 	 
-	    private static void nQueenHelper(char[][] board, int n)
+	    private static void helper(char[][] board, int n)
 	    {
 	        // if `N` queens are placed successfully, print the solution
 	        if (n == board.length)// 2d matrix legnth is row ::: once all rows are filled we are done
@@ -72,7 +72,7 @@ public class N_queen_problem {
 	                board[n][i] = 'Q';
 	 
 	                // recur for the next row
-	                nQueenHelper(board, n + 1);
+	                helper(board, n + 1);
 	 
 	                // backtrack and remove the queen from the current square since no solution is found for this cell
 	                board[n][i] = '–';
@@ -130,13 +130,13 @@ public class N_queen_problem {
 	        // the current configuration
 	        char[][] mat = new char[N][N];
 	        
-	        ArrayList<Character> arrList = new ArrayList<Character>();
+	       // ArrayList<Character> arrList = new ArrayList<Character>();
 	        // initialize `mat[][]` by `-`
 	        for (int i = 0; i < N; i++) {
 	            Arrays.fill(mat[i], '–');
 	        }
 	       
 	 
-	        nQueenHelper(mat, 0);
+	        helper(mat, 0);
 	    }
 	}

@@ -3,6 +3,8 @@ package ik.com.anup.recursion;
 //palndrome check for input from startIndex uotp current index 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /*Find all palindromic decompositions of a given string s.
 
@@ -29,12 +31,12 @@ Constraints:
 1 <= length of s <= 20
 s only contains lowercase English letters.*/
 public class PalindromicDecompositionOfAString {
-	  static ArrayList<String> generate_palindromic_decompositions(String s) {
+	/*  static ArrayList<String> generate_palindromic_decompositions(String s) {
 	        // Write your code here.
-	        ArrayList<String> output = new ArrayList<>();
+	        ArrayList<String> result = new ArrayList<>();
 	        char[] slate = new char[s.length()*2];
-	        helper(s.toCharArray(), 0, 0, slate, output);
-	        return output;
+	        helper(s.toCharArray(), 0, 0, slate, result);
+	        return result;
 	    }
 	    
 	  
@@ -71,4 +73,60 @@ public class PalindromicDecompositionOfAString {
 	        }
 	        return true;
 	    }
+	    
+	 */   
+	    
+	    
+	//    LeetCode :: Palindrome PARTIOTIONING
+	    
+	    
+	    
+	    public List<List<String>> partition(String s) {
+	        
+	        List<List<String>> res = new ArrayList<>();
+	      
+	        helper(0, new LinkedList<String>(), s, res);
+	        return res;
+	    }
+	    
+	    
+	    private void helper(int index, List<String> slate, String input,  
+	                        List<List<String>> res){ 
+	        
+	        char[] c_arr= input.toCharArray();
+	        
+	        if(index >= c_arr.length) {
+	            res.add(new ArrayList<>(slate));
+	            return;
+	        }
+	        
+	        for(int i = index; i < c_arr.length; i++){
+	            
+	            if(!isPalindrome(c_arr,index, i)) continue;
+	            slate.add(input.substring(index, i + 1));// add 1 more character
+	            helper(i + 1, slate,input,res);
+	            slate.remove(slate.size() - 1);
+	        
+	        }
+	    }
+	    private boolean isPalindrome(char [] c_arr,int L, int R){
+	        while(L < R){
+	            if(c_arr[L] != c_arr[R]) return false;
+	            L++;
+	            R--;
+	        }
+	        return true;
+	    }
+	
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 }

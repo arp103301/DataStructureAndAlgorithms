@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/*Given a seven-digit phone number, return all the character combinations that can be generated according to the following mapping:
+/*Given a seven-digit phone number, return all the character combinations 
+ * that can be generated according to the following mapping:
 
 Graph
 
@@ -52,7 +53,7 @@ public class WordsFromPhoneNumber {
         map.put('9', "wxyz");
         
         ArrayList<String> result = new ArrayList<>();
-        phoneNumberHelper(phone_number, new StringBuilder(), map, result, 0);
+        helper(phone_number, new StringBuilder(), map, result, 0);
         
         if (result.size() ==0) 
             result.add("-1");
@@ -60,7 +61,8 @@ public class WordsFromPhoneNumber {
         return result;
     }
     
-    static void phoneNumberHelper(String input, StringBuilder slate,  Map<Character, String> digiMap, ArrayList<String> result, int startIndx) {
+    static void helper(String input, StringBuilder slate,  Map<Character, 
+    		String> digiMap, ArrayList<String> result, int startIndx) {
         if (startIndx == input.length()) {
             if (slate.length()>0)
                 result.add(slate.toString());
@@ -70,14 +72,15 @@ public class WordsFromPhoneNumber {
         String str = digiMap.get(input.charAt(startIndx));
         
         if (str != null) {// remember 1 do not map to any string and input might start with 1
-            for (int i=0; i<str.length(); i++) {
+            
+        	for (int i=0; i<str.length(); i++) {
             	//include the character and recurse
                 slate.append(str.charAt(i));
-                phoneNumberHelper(input, slate, digiMap, result, startIndx+1);
+                helper(input, slate, digiMap, result, startIndx+1);
                 slate.deleteCharAt(slate.length()-1);
             }
         } else {//move forward if first character is 1:: 
-            phoneNumberHelper(input, slate, digiMap, result, startIndx+1);
+            helper(input, slate, digiMap, result, startIndx+1);
         }
     }
 }
