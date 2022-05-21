@@ -72,7 +72,8 @@ public class PrintAllPathsThatSumToK {
     }
 
 
-	private static void helper(BinaryTreeNode node, ArrayList<Integer> slate, ArrayList<ArrayList<Integer>> result, int target) {
+	private static void helper(BinaryTreeNode node, ArrayList<Integer> slate, 
+			ArrayList<ArrayList<Integer>> result, int target) {
 		
 		slate.add(node.value);	
 			

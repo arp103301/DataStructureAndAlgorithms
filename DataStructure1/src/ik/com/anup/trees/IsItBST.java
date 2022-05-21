@@ -31,7 +31,7 @@ Constraints:
 
 0 <= number of nodes <= 100000
 -109 <= values stored in the nodes <= 109*/
-public class IsItABST {
+public class IsItBST {
 	   
    // For your reference:
     class BinaryTreeNode {
@@ -52,14 +52,19 @@ public class IsItABST {
         if(root==null){
             return true;
         }
+        // current node value is not within valid range
         if((low!=null && low>root.value) || (high!=null && high<root.value)){
                  return false;
             }
         
         //boolean left = helper(root.left,low,root.value);
         //boolean right = helper(root.right,root.value,high);
+     
+        // true when both left and right subtrees are valid BST
         return helper(root.right,root.value,high) && helper(root.left,low,root.value);// root.val in bothside recuRRRRsion
     }
+   
+    
     static Boolean is_bst(BinaryTreeNode root) {
         return helper(root,null,null);
     }

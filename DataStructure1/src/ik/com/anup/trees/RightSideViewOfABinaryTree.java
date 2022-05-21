@@ -57,7 +57,7 @@ public class RightSideViewOfABinaryTree {
 		Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode>();
 		queue.offer(root);
 		
-		int rightNode = 0;
+		int rightNodeVal = 0;
 		while (!queue.isEmpty()) {
 			
 			//result.add(new ArrayList<Integer>());
@@ -67,8 +67,9 @@ public class RightSideViewOfABinaryTree {
 			for (int i = 0; i < numOfNodes; i++) {
 				
 				BinaryTreeNode currentNode = queue.peek();
-				  
-				rightNode = currentNode.value;
+				 
+				//pushing left and then right nodes will help us in getting right one first when popping off.
+				rightNodeVal = currentNode.value;//
 			
 				
 				if (currentNode.left != null) {
@@ -80,7 +81,7 @@ public class RightSideViewOfABinaryTree {
 				
 				queue.poll();
 			}
-			result.add(rightNode);// only add rightNode in the result..
+			result.add(rightNodeVal);// only add rightNode in the result..
 		}
 
 		return result;

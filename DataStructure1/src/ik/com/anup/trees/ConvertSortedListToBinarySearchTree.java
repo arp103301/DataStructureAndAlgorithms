@@ -2,7 +2,7 @@ package ik.com.anup.trees;
 
 import java.util.ArrayList;
 
-/*Given a linked list with elements sorted in ascending order, convert it into a height-balanced binary search tree.
+/*Given a linkedlist with elements sorted in ascending order, convert it into a height-balanced binary search tree.
 
 Example One
 Input

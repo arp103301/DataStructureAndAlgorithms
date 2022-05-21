@@ -3,11 +3,15 @@ package ik.com.anup.trees;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Given the root node of a binary tree, convert it into a circular doubly linked list in-place. The left and the right pointers in nodes are to be used as previous and next pointers, respectively, in the structure that you return.
+/*Given the root node of a binary tree, 
+ * convert it into a circular doubly linked list in-place. The left and the right pointers in nodes 
+ * are to be used as previous and next pointers, respectively, in the structure that you return.
 
 Returned list should follow the in-order traversal order of the given tree.
 
-The "root" node that you return should be the first node in the in-order traversal order. That "root" node should be connected with the last node in the in-order traversal as if "root" node goes after the last node and last node goes before the "root" node.
+The "root" node that you return should be the first node in the in-order traversal order. That "root"
+ node should be connected with the last node in the in-order traversal as if "root" node goes after
+  the last node and last node goes before the "root" node.
 
 Example
 Example input
