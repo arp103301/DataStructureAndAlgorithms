@@ -1,4 +1,6 @@
 package ik.com.anup.dp;
+//Levenstein Problem
+
 //https://leetcode.com/submissions/detail/676622574/
 
 /*Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
@@ -68,11 +70,12 @@ public class EditDistance {
 	                } else {
 	                    // If the last character is different, consider all
 	                    // possibilities and find the minimum
-	                    dp[i][j] = Math.min(dp[i][j],
-	                        1 + Math.min(dp[i - 1][j - 1], // Replace
-	                            Math.min(dp[i - 1][j], // Remove
-	                                dp[i][j - 1] // Insert
-	                            )));
+	                	int replace =dp[i - 1][j - 1];//prevDia
+	                	int delete =dp[i - 1][j];//prevRow
+	                	int insert =dp[i][j - 1];//prevCol
+	                	//D , I, R >> clockwise with i,j
+	                	dp [i][j]= Math.min(dp [i][j],
+	                			Math.min(replace, Math.min(delete, insert)) + 1);
 	                }
 	            }
 	        }

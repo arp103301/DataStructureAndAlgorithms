@@ -25,6 +25,7 @@ Example 1:
 Input: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
 Output: 11
 Explanation: The triangle looks like:
+///////////////// actually it leftside is restristed at index 0 so 2 on top of 3 on top of 6 etc*********
    2
   3 4
  6 5 7
@@ -48,24 +49,24 @@ Follow up: Could you do this using only O(n) extra space, where n is the total n
 public class PascalTriagleMinPathSum {
 	public int minimumTotal(List<List<Integer>> triangle) {
 	    
-	      int n=triangle.size();
-	        int[][] dp=new int[n][n];
-	        
-	        
-			for(int i=0;i<n;i++){
-				dp[n-1][i]=triangle.get(n-1).get(i);
-			}
-			
-			// triangle loop from bottom while DP loop from top 
-			for(int i=n-2;i>=0;i--){
-				for(int j=0;j<=i;j++){
-					// take the min between the down path versus the diagonal path 
-					//dp[i][j]=Math.min(dp[i+1][j]+triangle.get(i).get(j),dp[i+1][j+1]+triangle.get(i).get(j));
-					dp[i][j]=Math.min(dp[i+1][j],dp[i+1][j+1])+triangle.get(i).get(j);
-					// add triangle to  min between currentRow and DiagonalUp
-				}
-			}
-			return dp[0][0];
+	      int n = triangle.size();
+	        int[][] dp = new int[n + 1][n + 1];
+	        for(int i = 1; i <= n; i++) {
+	            for (int j = 1; j <= i; j++) {
+	                if(j == 1) {//downpath
+	                    dp[i][j] = triangle.get(i - 1).get(j - 1) + dp[i - 1][j];
+	                } else if (j == i) {//diagonalPath
+	                    dp[i][j] = triangle.get(i - 1).get(j - 1) + dp[i - 1][j - 1];
+	                } else {//min(diagPth,DOwnPath)
+	                    dp[i][j] = triangle.get(i - 1).get(j - 1) + Math.min(dp[i - 1][j - 1], dp[i - 1][j]); 
+	                }
+	            }
+	        }
+	        int min = Integer.MAX_VALUE;
+	        for(int i = 1; i <= n; i++) {
+	            min = Math.min(min, dp[n][i]);
+	        }
+	        return min;
 	    
 	    
 	}

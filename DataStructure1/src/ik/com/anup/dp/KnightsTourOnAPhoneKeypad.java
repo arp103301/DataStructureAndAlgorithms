@@ -1,5 +1,7 @@
 package ik.com.anup.dp;
 
+//LC 935 ::935. Knight Dialer>>> MOves= {+-2,+-1}
+
 import java.util.ArrayList;
 
 /*Given a phone keypad as shown below:
@@ -9,9 +11,11 @@ import java.util.ArrayList;
 7 8 9
 – 0 –
 
-How many different phone numbers of given length can be formed starting from the given digit? The constraint is that the movement from one digit to the next is similar to the movement of the Knight in chess.
+How many different phone numbers of given length can be formed starting from the given digit? 
+The constraint is that the movement from one digit to the next is similar to the movement of the Knight in chess.
 
-For example, if we are at 1, then the next digit can be either 6 or 8; if we are at 6 then the next digit can be 1, 7 or 0.
+For example, if we are at 1, then the next digit can be either 6 or 8; if we are at 6 then the 
+next digit can be 1, 7 or 0.
 
 Repetition of digits is allowed, e.g. 1616161616 is a valid number.
 There is no need to list all possible numbers, just find how many they are.
@@ -55,7 +59,7 @@ public class KnightsTourOnAPhoneKeypad {
     static Long count_phone_numbers_of_given_length(Integer startdigit, Integer phonenumberlength) {
 
         // List of where integers where you can go from a particular integer
-        ArrayList<ArrayList<Integer>> validMoves = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> validMoves = new ArrayList<>();// {+-2,+-1}
       //listOfNext= [4,6],[6,8],[7,9]...[4,2]]
         // 0
         validMoves.add(new ArrayList<Integer>());
@@ -120,7 +124,8 @@ public class KnightsTourOnAPhoneKeypad {
                 	
                     // We can come to num from all its neighbors.
                     // So we will add all possible numbers of length (i - 1) that are neighnours of num.
-                    dp[i][digit] += dp[i - 1][vm];
+                   // dp[i][digit] += dp[i - 1][vm];
+                    dp[i][digit] =dp[i][digit]+ dp[i - 1][vm];// include+exclude the currentValue
                 }
             }
         }
@@ -134,3 +139,9 @@ public class KnightsTourOnAPhoneKeypad {
     }
 
 }
+/*
+Asymptotic complexity in terms of `phonenumberlength`:
+* Time: O(phonenumberlength).
+* Auxiliary space: O(phonenumberlength).
+* Total space: O(phonenumberlength).
+*/

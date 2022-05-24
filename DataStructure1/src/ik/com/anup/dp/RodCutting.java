@@ -2,7 +2,12 @@ package ik.com.anup.dp;
 
 //https://www.techiedelight.com/rod-cutting/
 
-public class RodCutting {
+
+/*Given a rod of length n and a list of rod prices of length i, where 1 <= i <= n, 
+find the optimal way to cut the rod into smaller rods to maximize profit*/
+
+
+public class RodCutting {// for maximum profit
 
 	  public static int bottomUpRodCutting(int price[], int n) {
 	    int[] table = new int[n+1];
@@ -17,8 +22,7 @@ public class RodCutting {
 		// consider a rod of length `i`
 		for (int i = 1; i <= n; i++)
 		{
-			// divide the rod of length `i` into two rods of length `j`
-			// and `i-j` each and take maximum
+			// divide the rod of length `i` into two rods of length `j` and `i-j` each and take maximum
 			for (int j = 1; j <= i; j++) {
 				table[i] = Integer.max(table[i], price[j - 1] + table[i - j]);
 			}

@@ -8,10 +8,10 @@ public class KnapSack01 {
     }
 
     private int knapSack(int[] weight, int[] val, int capacity){
-        for (int i=0; i<=capacity;i++)
-            dp[0][i] = 0;
-        for (int i=0;i<=weight.length;i++)
-            dp[i][0] =0;
+        for (int i=0; i<=capacity;i++) 		dp[0][i] = 0;
+            
+        for (int i=0;i<=weight.length;i++)  dp[i][0] =0;
+           
         for(int i=1; i< weight.length + 1;i++){
             for(int j=1;j<capacity+1;j++){
                 if(weight[i-1]<=j)
@@ -26,8 +26,8 @@ public class KnapSack01 {
     public static void main(String[] args) {
         int[] wt = { 60, 100, 120 };
         int[] val = { 10, 20, 30 };
-        int W = 50;
-        KnapSack01 ks = new KnapSack01(wt,W);
-        System.out.println(ks.knapSack(val,wt,W));
+        int cap = 50;
+        KnapSack01 ks = new KnapSack01(wt,cap);
+        System.out.println(ks.knapSack(val,wt,cap));
     }
 }

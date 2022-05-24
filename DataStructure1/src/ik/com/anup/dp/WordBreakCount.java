@@ -36,7 +36,7 @@ public class WordBreakCount {
 	        int maxLen = txt.length()+1;//txt is broken into  valid single letter( exists in dictonary)
 	        int mod = 1000000007;
 	        int n = txt.length();
-	        Set<String> dict = new HashSet<>(dictionary);
+	        Set<String> dict = new HashSet<>(dictionary);/*******************************/
 	        
 	        int[] dpTable = new int[n+1];
 	        
@@ -50,8 +50,8 @@ public class WordBreakCount {
 	        
 	           for(int j=i+1; j<=n; j++){// maxLen is not necessary per IK compiletool
 	            	
-	                String str = txt.substring(i, j);
-	                if(dict.contains(str)){
+	                String subString = txt.substring(i, j);
+	                if(dict.contains(subString)){// if the boolen check of LC 139:: need additionchekc dp[i]is true*******\
 	                	
 	                    dpTable[j] += dpTable[i];// recurrence relation :::: f(j)= f(i)+f(i-1);
 	                    dpTable[j] = dpTable[j] % mod;// requiremtn ::::Return the answer modulo 10^9 + 7.

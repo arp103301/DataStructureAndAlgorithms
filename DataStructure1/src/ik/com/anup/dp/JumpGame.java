@@ -56,22 +56,66 @@ public class JumpGame {
 	 
 	static Boolean can_reach_last_house(ArrayList<Integer> maximum_jump_lengths) {
 	        // Write your code here.
-	        int numHouses = maximum_jump_lengths.size();
-	        if (numHouses == 1) return true;
+		//https://github.com/Eric-programming/CodeSolution/blob/master/src/DPDecisionMaking/JumpGame/JumpGame_Bottom_up.java
+		//https://uplevel.interviewkickstart.com/resource/editorial/rc-codingproblem-167226-485511-57-1601	
+			
+		 //Greedy approach from the end ::::::::: if i+num_I  is greater than leftMost ; update lerftMost to i
+	      int n = maximum_jump_lengths. size(), leftMost = n - 1;  
+	      // n-1 is already good value so iteration starts from n-2
+	        for(int i = n - 2; i >= 0; i--){
+	           // if(i + nums[i] >= goal){
+	        	if(i + maximum_jump_lengths.get(i) >= leftMost){
+	        	leftMost = i;
+	            }
+	        }
+	        return leftMost == 0;
+	    }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*      int n = maximum_jump_lengths.size();
+	        if (n == 1) return true;
 	        
-	        int farthestReachable = 0;
-	        for (int i = 0; i < numHouses; i++) {
+	        int maxReach = 0;
+	        for (int i = 0; i < n; i++) {//see constraints
 	        	
 	            //no need to find the combination  hence only 1 for loop for input arraylist
-	        	if (farthestReachable < i)  return false;
+	        	if (maxReach < i)  return false;
 	        	
-	            farthestReachable = Math.max( i + maximum_jump_lengths.get(i),farthestReachable);
+	            maxReach = Math.max( i + maximum_jump_lengths.get(i),maxReach);
 	            
-	            if (farthestReachable >= numHouses - 1) return true;//end of the run
+	            if (maxReach >= n - 1) return true;//end of the run
 	        }
 	        
-	        return false; 
+	        return false; */	
+		
 	    }
 	   
-
-}
+	 /*public class JumpGame2 {
+		public int jump(int[] nums) {
+			
+			int [] jumps = new int[nums.length];
+		  
+		    jumps[0]=0;
+		    for(int i=1;i<nums.length;i++)
+		    {
+		        for(int j=0;j<i;j++)
+		        {
+		            if(nums[j]>=i-j)
+		                jumps[i] = Integer.min(jumps[i], jumps[j]+1);
+		        }
+		    }
+		    return jumps[nums.length-1];
+		}
+	}*/

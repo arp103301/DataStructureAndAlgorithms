@@ -34,7 +34,7 @@ Constraints:
 1 <= number of coin types <= 102
 1 <= coin value <= 102
 1 <= amount of money to express <= 104*/
-public class MinimumCoins {
+public class CoinsChange {
 	   static Integer minimum_coins(ArrayList<Integer> coins, Integer amount) {
 	        // Write your code here.
 		   int[] dp = new int[amount + 1];
@@ -66,20 +66,12 @@ public class MinimumCoins {
 			 * 
 			 * After the dp table has been constructed, dp[value] will give us our answer.
 			 */
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
+	    
 		    // Solve every subproblem from 1 to amount
-		    for (int i = 1; i <= amount; i++) {
+		    for (int i = 1; i <= amount; i++) {// target
 		    	   System.out.println("Amount[i] is ::::"+i );
 		      // For each coin we are given
-		      for (int j = 0; j < coins.size(); j++) {
+		      for (int j = 0; j < coins.size(); j++) {// run through inputOPtions
 		        // If it is less than or equal to the sub problem amount
 		        if (coins.get(j) <= i) {//new coin cant be greater than amount:::
 		          // Try it. See if it gives us a more optimal solution

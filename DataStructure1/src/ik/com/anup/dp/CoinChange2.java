@@ -1,9 +1,12 @@
 package ik.com.anup.dp;
+import java.util.Arrays;
 
-//import com.sun.jdi.Value;
+//Number Of Ways To Make Change for IK probELM
+
 
 //https://pencilprogrammer.com/algorithms/coin-change-problem-using-dp/ 
-/*You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+/*You are given an integer array coins representing coins of different
+ *  denominations and an integer amount representing a total amount of money.
 
 Return the number of combinations that make up that amount. If that amount of money
 cannot be made up by any combination of the coins, return 0.
@@ -41,12 +44,64 @@ Constraints:
 All the values of coins are unique.
 0 <= amount <= 5000*/
 public class CoinChange2 {
-
+	//https://leetcode.com/problems/coin-change-2/discuss/1937043/Java-DP-With-Tabulation-Simple-Solution-With-Comments
 	    public  static int coinChange2(int amount, int[] coins) {
+	    	
+	        int n = coins.length;
+	        
+	        // Step 1: Base Case, if amount is 0 we have only 1 way (to not select)
+	        if(amount == 0) return 1;       
+	        
+	        // Step 2: Base case, if coins are 0 we have no way 
+	        if(n == 0) return 0;
+	        
+	        // Step 3: Create a memoization matrix
+	        int[][] table = new int[n+1][amount+1];/*******************/
+	        
+	        // Step 4: If n=0, then the result will always be 0
+	        Arrays.fill(table[0], 0);
+	        
+	        // Step 5: If amount = 0, there is only one way
+	        for(int i=0; i<table.length; i++){
+	            table[i][0] = 1;
+	        }
+	        
+	        // Step 6: Start DP
+	        for(int i=1; i<=n; i++){
+	            
+	            for(int j=1; j<=amount; j++){
+	                
+	                int currentCoin = coins[i-1];
+	                
+	                // Step 7: If current coin is <= amount, we have two choices
+	                if(currentCoin <= j){
+	                    
+	                    // Step 8: Choice #1, if we select the coin
+	                    int selectCurrentCoin = table[i][j - currentCoin];
+	                    
+	                    // Step 9: Choice #2, if we reject the coin
+	                    int rejectCurrentCoin = table[i-1][j];
+	                    
+	                    // Step 10: We need total number of ways
+	                    table[i][j] = selectCurrentCoin + rejectCurrentCoin;
+	                }
+	                // Step 11: If current coin is > amount, reject the coin
+	                else{
+	                    table[i][j] = table[i-1][j];
+	                }
+	                
+	            }
+	        }       
+	        
+	        return table[n][amount];
+	        
+	    }
+	    	
+	    	
 	         // Declaring a 2-D array
 	      // for storing solutions to subproblems:
 	    	//int size = coins.length;
-	    	int[][] table = new int[coins.length + 1][amount + 1];
+	  /*  	int[][] table = new int[coins.length + 1][amount + 1];
 	    	
 	      // Initializing first column of array to 1
 	      // because a sum of 0 can be made
@@ -74,7 +129,9 @@ public class CoinChange2 {
 	    
 	    
 	    
-	    
+	   */
+	    	
+	    	
 	    
 	    
 	    

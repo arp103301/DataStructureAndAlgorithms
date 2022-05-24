@@ -58,15 +58,15 @@ public class CountWaysToReachTheNthStep {
         long table[] = new long[n + 1];
         
         // There is one way to reach till zero, as we start from 0
-        table[0] = 1;
+        table[0] = 1;// do nothing is also 1 way
         
         
-        for (int currStair = 1; currStair <= n; currStair++) {//i for target
+        for (int i = 1; i <= n; i++) {//i for target
             // Find the ways that you can reach here from current step
-            for (int step : steps) {//j
-                int previousStep = currStair - step;//////////int previousVal = amount[i - coins[j]];
+            for (int step : steps) {// need to run through inputOPtions
+                int previousStep = i - step;//////////int previousVal = amount[i - coins[j]];
                 if (previousStep >= 0) {
-                    table[currStair] += table[previousStep];
+                    table[i] += table[previousStep];// currStepValue+ prevStepValue
                     //  On RHS --- table[currStair]  is for current step cost which is added to previous optimum step soluction
                 }
             }
@@ -74,5 +74,37 @@ public class CountWaysToReachTheNthStep {
 
         // Ways to reach the nth step
         return table[n];
+    }
+}
+
+//////////////////////////////  LC 70 climbing stairs where you are given there can be only two ways 1 steps or 2 steps
+class Solution {
+    public int climbStairs(int n) {
+        
+    	int [] dp = new int [n+1];
+    	 dp[0]= 1;
+    	 dp[1]= 1;
+    	 
+    	 for (int i=2; i<=n;i++) {// see constraints given 
+    		 dp[i]= dp[i-1]+dp[i-2];
+    	 }
+    	 return dp [n];
+  	
+    }
+    ///////////////////////////////////////////////// LC 746
+    class Solution2 {
+        
+    
+        
+        public int minCostClimbingStairs(int[] cost) {
+             int[] dp = new int[cost.length+1];
+             dp[0] = 0;
+             dp[1] = 0;
+             for (int i = 2 ; i < dp.length ; i++) {// see constraints given 
+            	//ist term= previous step and second term = two steps cost
+                 dp[i] = Math.min(dp[i-1] + cost[i-1] , dp[i-2] + cost[i-2] );
+             }
+             return dp[cost.length];
+        }
     }
 }
