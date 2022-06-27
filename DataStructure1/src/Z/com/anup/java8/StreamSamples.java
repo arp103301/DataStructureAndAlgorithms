@@ -1,7 +1,8 @@
-package Z.com.anup.companiesSamples;
+package Z.com.anup.java8;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +127,30 @@ public class StreamSamples {
 		List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
 		
 		sortedList.forEach(i-> System.out.println(i));
+		
+		// descending order sorting >> need to use comparator 
+		
+		List <Integer> numList = new ArrayList<>();
+		numList.add(21); numList.add(52);numList.add(231); numList.add(137);
+		Stream strm = numList.stream().filter(s->s>20);
+		Stream strm2 = strm.sorted((i1, i2)->((Integer) i2).compareTo((Integer) i1));// i1.compareTo I2>> asc
+		
+		strm2.forEach(x->System.out.println("desendingSort is ::"+x));
+		
+		
+		List < String > fruits = new ArrayList < String > ();
+        fruits.add("Banana");
+        fruits.add("Apple");
+        fruits.add("Mango");
+        fruits.add("Orange");
+
+        // descending order
+        List < String > sortedList3 = fruits.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        System.out.println(sortedList3);
+
+        List < String > sortedList4 = fruits.stream().sorted((o1, o2) -> o2.compareTo(o1)).collect(Collectors.toList());
+        System.out.println(sortedList4);
+		
 }//main
 
 }//class
